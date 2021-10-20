@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "quevedo": "git@github.com:agarsev/quevedo.git",
+    "corpus": "git@github.com:agarsev/visse-corpus.git",
+    "darknet": "https://github.com/AlexeyAB/darknet"
+  }
+}

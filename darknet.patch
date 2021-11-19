@@ -1,0 +1,29 @@
+diff --git a/Makefile b/Makefile
+index 5635f8f..ab1d1a8 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,8 +3,8 @@ CUDNN=0
+ CUDNN_HALF=0
+ OPENCV=0
+ AVX=0
+-OPENMP=0
+-LIBSO=0
++OPENMP=1
++LIBSO=1
+ ZED_CAMERA=0
+ ZED_CAMERA_v2_8=0
+ 
+diff --git a/include/darknet.h b/include/darknet.h
+index 892ad71..ac4e043 100644
+--- a/include/darknet.h
++++ b/include/darknet.h
+@@ -16,6 +16,9 @@
+ #include <assert.h>
+ #include <pthread.h>
+ 
++#define printf(...)
++#define fprintf(...)
++
+ #ifndef LIB_API
+ #ifdef LIB_EXPORTS
+ #if defined(_MSC_VER)

@@ -16,17 +16,20 @@ fi
 
 # -- VARS --
 
-RELEASE=1.0.0-alpha
-WHEEL=1.0.0a0
+RELEASE=v1.0.0-alpha.1
 
-FRONTEND_PKG=visse-frontend-$RELEASE.tgz
-BACKEND_PKG=visse_backend-$WHEEL-py3-none-any.whl
-CORPUS_PKG=visse-corpus-$RELEASE.tgz
+FRONTEND_VERSION=1.0.0-alpha.1
+BACKEND_VERSION=1.0.0a1
+CORPUS_VERSION=1.0.0-alpha
 
-RELEASE_URL=https://github.com/agarsev/visse-app/releases/download/v$RELEASE
+FRONTEND_PKG=visse-frontend-$FRONTEND_VERSION.tgz
+BACKEND_PKG=visse_backend-$BACKEND_VERSION-py3-none-any.whl
+CORPUS_PKG=visse-corpus-$CORPUS_VERSION.tgz
+
+RELEASE_URL=https://github.com/agarsev/visse/releases/download/$RELEASE
 FRONTEND_PKG_URL=$RELEASE_URL/$FRONTEND_PKG
 BACKEND_PKG_URL=$RELEASE_URL/$BACKEND_PKG
-CORPUS_PKG_URL=https://holstein.fdi.ucm.es/visse/files/$CORPUS_PKG
+CORPUS_PKG_URL=$RELEASE_URL/$CORPUS_PKG
 
 PKG_DIR=packages # Where to put downloaded packages
 VENV_PATH=.venv # Set to nothing to use system python
@@ -37,6 +40,8 @@ CORPUS_PKG=$PKG_DIR/$CORPUS_PKG
 
 DARKNET_GIT=https://github.com/AlexeyAB/darknet
 DARKNET_COMMIT=aa002ea1f8fbce6e139210ee1d936ce58ce120e1
+
+DOWNLOAD="wget --retry-connrefused --tries=10 --waitretry=5 --timeout=20 --continue"
 
 # -- SETUP --
 
@@ -72,7 +77,7 @@ info "\nInstalling backend..."
 if [ -f $BACKEND_PKG ]; then
     info "Backend package already exists, skipping download"
 else
-    wget "$BACKEND_PKG_URL" -O $BACKEND_PKG
+    $DOWNLOAD "$BACKEND_PKG_URL" -O $BACKEND_PKG
 fi
 $PYTHON -m pip install $BACKEND_PKG
 info "Backend installed"
@@ -82,7 +87,7 @@ info "\nInstalling frontend..."
 if [ -f $FRONTEND_PKG ]; then
     info "Frontend package already exists, skipping download"
 else
-    wget "$FRONTEND_PKG_URL" -O $FRONTEND_PKG
+    $DOWNLOAD "$FRONTEND_PKG_URL" -O $FRONTEND_PKG
     rm -rf frontend
 fi
 info "Unpacking frontend..."
@@ -100,7 +105,7 @@ info "\nDownloading corpus..."
 if [ -f $CORPUS_PKG ]; then
     info "Corpus package already exists, skipping download"
 else
-    wget "$CORPUS_PKG_URL" -O $CORPUS_PKG
+    $DOWNLOAD "$CORPUS_PKG_URL" -O $CORPUS_PKG
     rm -rf corpus
 fi
 info "Unpacking corpus..."

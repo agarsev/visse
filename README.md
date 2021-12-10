@@ -16,11 +16,20 @@ with instructions for their use.
     network training and expert system building.
 - [VisSE Corpus](https://github.com/agarsev/visse-corpus): a corpus of handwritten
     SignWriting annotations of Spanish Sign Language, in Quevedo dataset format,
-    with trained neural networks and recognition pipelines.
+    with trained neural networks and recognition pipelines. While we finish its
+    annotation, it is not publicly available, but partial packaged releases will
+    be made available in this repository.
 - [VisSE App](https://github.com/agarsev/visse-app): a progressive web application for
     the explanation of handwritten SignWriting instances. It identifies the
     different components of the trascription, and gives a textual explanation of
     their meaning as well as a 3D model of the hands involved.
+
+## Research
+
+The expert system that makes the project possible is described in the following
+publication:
+
+- TODO
 
 ## Usage
 
@@ -44,6 +53,11 @@ development of accessible technologies.
 
 We want to acknowledge the collaboration of the signing community, especially
 the Spanish Sign Language teachers at Idiomas Complutense and Fundación CNSE.
+
+### License
+
+The code in this repository is licensed under the [Open Software License version
+3.0](https://opensource.org/licenses/OSL-3.0).
 
 ### Team
 

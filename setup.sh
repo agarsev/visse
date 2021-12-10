@@ -53,9 +53,9 @@ error() { echo -e "\033[1;31mERROR: $*\033[0m"; exit 2; }
 mkdir -p $PKG_DIR
 
 
-PYTHON=$(command -v python)
+PYTHON=$(command -v python3)
 if [ -z "$PYTHON" ]; then
-    error "No python found"
+    error "No python 3 found"
 fi
 
 set -Eeuo pipefail
@@ -67,8 +67,8 @@ elif [ -d "$VENV_PATH" ]; then
     PYTHON=$VENV_PATH/bin/python
     info "Using virtualenv at $VENV_PATH"
 else
-    VENV_PATH=$(cd $VENV_PATH && pwd)
     $PYTHON -m venv $VENV_PATH
+    VENV_PATH=$(cd $VENV_PATH && pwd)
     PYTHON=$VENV_PATH/bin/python
     info "Created virtual environment at $VENV_PATH"
 fi
@@ -79,7 +79,7 @@ if [ -f $BACKEND_PKG ]; then
 else
     $DOWNLOAD "$BACKEND_PKG_URL" -O $BACKEND_PKG
 fi
-$PYTHON -m pip install $BACKEND_PKG
+$PYTHON -m pip install --prefer-binary $BACKEND_PKG
 info "Backend installed"
 
 

@@ -5,10 +5,14 @@
 # 2021-11-10 Antonio F. G. Sevilla <afgs@ucm.es>
 # Licensed under the Open Software License version 3.0
 
-
 # Requirements (install with e.g apt)
 # - python3.9 (+ pip and virtualenv)
 # - nginx
+
+if [ $# -gt 0 ]; then
+    echo "Call this script without arguments to deploy VisSE in the current directory."
+    exit 1
+fi
 
 # -- VARS --
 
@@ -39,7 +43,7 @@ DARKNET_COMMIT=aa002ea1f8fbce6e139210ee1d936ce58ce120e1
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 
 info() { echo -e "\033[1;36m$*\033[0m"; }
-error() { echo -e "\033[1;31mERROR: $*\033[0m"; exit 1; }
+error() { echo -e "\033[1;31mERROR: $*\033[0m"; exit 2; }
 
 mkdir -p $PKG_DIR
 
@@ -54,12 +58,14 @@ set -Eeuo pipefail
 if [ -z "$VENV_PATH" ]; then
     info "Using system python"
 elif [ -d "$VENV_PATH" ]; then
+    VENV_PATH=$(cd $VENV_PATH && pwd)
+    PYTHON=$VENV_PATH/bin/python
     info "Using virtualenv at $VENV_PATH"
-    PYTHON=$VENV_PATH/bin/python
 else
+    VENV_PATH=$(cd $VENV_PATH && pwd)
     $PYTHON -m venv $VENV_PATH
-    info "Created virtual environment at $VENV_PATH"
     PYTHON=$VENV_PATH/bin/python
+    info "Created virtual environment at $VENV_PATH"
 fi
 
 info "\nInstalling backend..."
@@ -77,6 +83,7 @@ if [ -f $FRONTEND_PKG ]; then
     info "Frontend package already exists, skipping download"
 else
     wget "$FRONTEND_PKG_URL" -O $FRONTEND_PKG
+    rm -rf frontend
 fi
 info "Unpacking frontend..."
 if [ -d frontend ]; then
@@ -94,6 +101,7 @@ if [ -f $CORPUS_PKG ]; then
     info "Corpus package already exists, skipping download"
 else
     wget "$CORPUS_PKG_URL" -O $CORPUS_PKG
+    rm -rf corpus
 fi
 info "Unpacking corpus..."
 if [ -d corpus ]; then
@@ -126,5 +134,19 @@ trap - ERR
 popd >/dev/null
 info "Darknet installed"
 
+
+# -- BUILD CONF FILES --
+
+export VISSE_DEPLOY_DIR=$(pwd)
+export VISSE_BACKEND_EXE=$VENV_PATH/bin/visse-backend
+export VISSE_BACKEND_PORT=8000
+
+envsubst < $SCRIPT_DIR/visse.nginx.conf > nginx.conf \
+    '$VISSE_DEPLOY_DIR$VISSE_BACKEND_PORT'
+envsubst < $SCRIPT_DIR/visse.backend.service > backend.service \
+    '$VISSE_DEPLOY_DIR$VISSE_BACKEND_PORT$VISSE_BACKEND_EXE'
+
+echo -e "\nExample nginx configuration file generated: \033[1;32mnginx.conf\033[0m"
+echo -e "Example systemd service file generated: \033[1;32mbackend.service\033[0m"
 
 info "\nVisSE setup finished"

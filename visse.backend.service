@@ -1,0 +1,16 @@
+[Unit]
+Description=VisSE App Backend
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=$VISSE_DEPLOY_DIR
+ExecStart=$VISSE_BACKEND_EXE
+Restart=always
+Environment="PYTHONUNBUFFERED=1"
+Environment="LD_LIBRARY_PATH=/usr/local/cuda/lib64"
+Environment="PORT=$VISSE_BACKEND_PORT"
+Environment="WEB_ROOT_PATH=/visse"
+Environment="CORPUS_PATH=$VISSE_DEPLOY_DIR/corpus"
+
+[Install]
+WantedBy=multi-user.target

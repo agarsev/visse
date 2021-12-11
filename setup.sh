@@ -16,20 +16,20 @@ fi
 
 # -- VARS --
 
-RELEASE=v1.0.0-alpha.1
-
-FRONTEND_VERSION=1.0.0-alpha.1
-BACKEND_VERSION=1.0.0a1
+FRONTEND_VERSION=1.0.0-beta
+BACKEND_VERSION=1.0.0b0
 CORPUS_VERSION=1.0.0-alpha
 
 FRONTEND_PKG=visse-frontend-$FRONTEND_VERSION.tgz
 BACKEND_PKG=visse_backend-$BACKEND_VERSION-py3-none-any.whl
 CORPUS_PKG=visse-corpus-$CORPUS_VERSION.tgz
 
-RELEASE_URL=https://github.com/agarsev/visse/releases/download/$RELEASE
-FRONTEND_PKG_URL=$RELEASE_URL/$FRONTEND_PKG
-BACKEND_PKG_URL=$RELEASE_URL/$BACKEND_PKG
-CORPUS_PKG_URL=$RELEASE_URL/$CORPUS_PKG
+APP_RELEASE_URL=https://github.com/agarsev/visse-app/releases/download/v$FRONTEND_VERSION
+CORPUS_RELEASE_URL=https://github.com/agarsev/visse/releases/download/v$CORPUS_VERSION
+
+FRONTEND_PKG_URL=$APP_RELEASE_URL/$FRONTEND_PKG
+BACKEND_PKG_URL=$APP_RELEASE_URL/$BACKEND_PKG
+CORPUS_PKG_URL=$CORPUS_RELEASE_URL/$CORPUS_PKG
 
 PKG_DIR=packages # Where to put downloaded packages
 VENV_PATH=.venv # Set to nothing to use system python

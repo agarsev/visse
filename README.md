@@ -27,9 +27,10 @@ with instructions for their use.
 ## Research
 
 The expert system that makes the project possible is described in the following
-publication:
+article:
 
-- TODO
+- **Automatic SignWriting Recognition**, Antonio F. G. Sevilla, Alberto Díaz
+  Esteban, and José María Lahoz-Bengoechea. [Preprint version](https://eprints.ucm.es/id/eprint/69235/)
 
 ## Usage
 

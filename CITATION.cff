@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: "Visualizando la SignoEscritura"
+authors:
+  - family-names: Sevilla
+    given-names: Antonio F. G.
+    orcid: "https://orcid.org/0000-0001-9025-1724"
+abstract: |
+  The VisSE project ("Visualizando la SignoEscritura", "Visualizing
+  SignWriting") aims to develop tools that ease the use and understanding of
+  SignWriting in the digital world. SignWriting is a system for visually
+  transcribing sign languages into a 2D page, i.e. a writing system for sign
+  languages.
+version: 1.0.0
+date-released: "2021-12-20"
+message: |
+    If you use this software, please cite our article "Automatic SignWriting
+    Recognition", but also don't hesitate to get in touch!
+preferred-citation:
+    title: "Automatic SignWriting Recognition"
+    authors:
+      - family-names: Sevilla
+        given-names: "Antonio F. G."
+        orcid: "https://orcid.org/0000-0001-9025-1724"
+      - family-names: Díaz Esteban
+        given-names: Alberto
+      - family-names: Lahoz-Bengoechea
+        given-names: José María
+    type: article
+    date-released: "2021-12-20"
+    url: "https://eprints.ucm.es/id/eprint/69235/"
